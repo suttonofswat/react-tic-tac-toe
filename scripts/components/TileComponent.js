@@ -31,7 +31,7 @@ onMove: function onMove(event) {
 			console.log('this spot is taken')
 			return;
 		}
-		if(this.props.player == 1){
+		if(this.props.player == 'player one'){
 			this.setState({ tiles: this.state.playerOne });
 			this.props.setTiles(this.props.pos, 'player one');
 		}

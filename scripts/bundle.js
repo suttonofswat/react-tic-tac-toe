@@ -34125,17 +34125,17 @@ module.exports = React.createClass({
 			//Initial state of the game board
 			tiles: ['', '', '', '', '', '', '', '', ''],
 			//Initial state of the player
-			activePlayer: 1,
+			activePlayer: 'player one',
 			winnerElement: null
 		};
 	},
 	switchPlayer: function switchPlayer() {
 		//Creating Function to switch player on the parent element to use once move has been
 		//made on the TileComponent.
-		if (this.state.activePlayer == 1) {
-			this.setState({ activePlayer: 2 });
+		if (this.state.activePlayer == 'player one') {
+			this.setState({ activePlayer: 'player two' });
 		} else {
-			this.setState({ activePlayer: 1 });
+			this.setState({ activePlayer: 'player one' });
 		}
 	},
 
@@ -34200,6 +34200,13 @@ module.exports = React.createClass({
 				'Current Turn: ',
 				this.state.activePlayer
 			);
+		} else {
+			currentTurn = React.createElement(
+				'h2',
+				null,
+				'Winner: ',
+				this.state.winnerElement
+			);
 		}
 		return React.createElement(
 			'div',
@@ -34207,12 +34214,6 @@ module.exports = React.createClass({
 			React.createElement(
 				'div',
 				null,
-				React.createElement(
-					'h2',
-					null,
-					'Winner: ',
-					this.state.winnerElement
-				),
 				React.createElement(
 					'div',
 					null,
@@ -34330,7 +34331,7 @@ module.exports = React.createClass({
 			console.log('this spot is taken');
 			return;
 		}
-		if (this.props.player == 1) {
+		if (this.props.player == 'player one') {
 			this.setState({ tiles: this.state.playerOne });
 			this.props.setTiles(this.props.pos, 'player one');
 		} else {
