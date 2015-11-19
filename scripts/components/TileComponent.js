@@ -5,9 +5,10 @@ var Backbone = require('backbone');
 
 module.exports = React.createClass({
 	getInitialState: function(){
+		//Initial state of the game board
 		return{
-			playerOne: 'x',
-			playerTwo: 'o'
+			playerOne: <span id="x" className="glyphicon glyphicon-record" aria-hidden="true"></span>,
+			playerTwo: <span id="o" className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
 		}
 	},
 
@@ -22,21 +23,25 @@ module.exports = React.createClass({
 	},
 
 onMove: function onMove(event) {
-		console.log(this.props.pos);
-		if(this.state.tiles === 'x' || this.state.tiles === 'o'){
+		console.log(this.state.tiles);
+		// var tileContent = this.state.tiles;
+		// console.log(tileContent)
+		if(this.state.tiles != undefined){
 			console.log('this spot is taken')
 			return;
 		}
 		if(this.props.player == 1){
 			this.setState({ tiles: this.state.playerOne });
+			this.props.setTiles(this.props.pos, 'x');
 		}
 		else{
 			this.setState({ tiles: this.state.playerTwo });
+			this.props.setTiles(this.props.pos, 'o');
 		}
 		//this.props.setTiles(this.props.key);
 		this.props.switchPlayer();
 		this.props.checkWinner();
-		console.log(this.props.checkWinner())
+		//console.log(this.props.checkWinner())
 	}
 	
 })

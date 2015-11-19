@@ -34122,12 +34122,15 @@ module.exports = React.createClass({
 
 	getInitialState: function getInitialState() {
 		return {
-			//Initial state of the game board.
+			//Initial state of the game board
 			tiles: ['', '', '', '', '', '', '', '', ''],
+			//Initial state of the player
 			activePlayer: 1
 		};
 	},
 	switchPlayer: function switchPlayer() {
+		//Creating Function to switch player on the parent element to use once move has been
+		//made on the TileComponent.
 		if (this.state.activePlayer == 1) {
 			this.setState({ activePlayer: 2 });
 		} else {
@@ -34136,25 +34139,32 @@ module.exports = React.createClass({
 	},
 
 	setTiles: function setTiles(position, value) {
-		//var myTiles = this.state.tiles[position] = value;
-		//this.setState({tiles: })
+		var myTiles = this.state.tiles;
+		myTiles[position] = value;
+		this.setState({ tiles: myTiles });
 	},
 
 	checkWinner: function checkWinner() {
-		debugger;
-		if (document.getElementById('tiles0').innerText == document.getElementById('tiles1').innerText && document.getElementById('tiles1').innerText == document.getElementById('tiles2').innerText) {
-			return;
-			document.getElementById('tiles0').innerText;
+		// Running through the positions of the tiles to declare a winner
+		if (this.state.tiles[0] == this.state.tiles[1] && this.state.tiles[1] == this.state.tiles[2]) {
+			console.log('player wins');
+			return this.state.tiles[0];
+		} else if (this.state.tiles[0] == this.state.tiles[1] && this.state.tiles[1] == this.state.tiles[2]) {
+			console.log('player wins');
+			return this.state.tiles[0];
 		}
+
 		return null;
 	},
 
 	render: function render() {
 		var _this = this;
 
+		//mapping through the tile board
 		var gBTiles = this.state.tiles.map(function (tile, position) {
-			return React.createElement(TileComponent, { key: postion, pos: position, tiles: tile, player: _this.state.activePlayer,
-				switchPlayer: _this.switchPlayer, checkWinner: _this.checkWinner });
+			return React.createElement(TileComponent, { key: position, pos: position, tiles: tile, player: _this.state.activePlayer,
+				switchPlayer: _this.switchPlayer, checkWinner: _this.checkWinner,
+				setTiles: _this.setTiles });
 		});
 		return React.createElement(
 			'div',
@@ -34206,9 +34216,10 @@ module.exports = React.createClass({
 	displayName: 'exports',
 
 	getInitialState: function getInitialState() {
+		//Initial state of the game board
 		return {
-			playerOne: 'x',
-			playerTwo: 'o'
+			playerOne: React.createElement('span', { id: 'x', className: 'glyphicon glyphicon-record', 'aria-hidden': 'true' }),
+			playerTwo: React.createElement('span', { id: 'o', className: 'glyphicon glyphicon-remove-circle', 'aria-hidden': 'true' })
 		};
 	},
 
@@ -34222,20 +34233,24 @@ module.exports = React.createClass({
 	},
 
 	onMove: function onMove(event) {
-		console.log(this.props.pos);
-		if (this.state.tiles === 'x' || this.state.tiles === 'o') {
+		console.log(this.state.tiles);
+		// var tileContent = this.state.tiles;
+		// console.log(tileContent)
+		if (this.state.tiles != undefined) {
 			console.log('this spot is taken');
 			return;
 		}
 		if (this.props.player == 1) {
 			this.setState({ tiles: this.state.playerOne });
+			this.props.setTiles(this.props.pos, 'x');
 		} else {
 			this.setState({ tiles: this.state.playerTwo });
+			this.props.setTiles(this.props.pos, 'o');
 		}
 		//this.props.setTiles(this.props.key);
 		this.props.switchPlayer();
 		this.props.checkWinner();
-		console.log(this.props.checkWinner());
+		//console.log(this.props.checkWinner())
 	}
 
 });

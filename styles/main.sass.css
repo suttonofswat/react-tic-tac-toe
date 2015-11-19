@@ -3,13 +3,12 @@
 
 .tile {
   border: 1px solid #b4b4b4;
-  padding: 5em; }
+  height: 10em;
+  text-align: center; }
 
-.playerOne {
-  background: #0000ff; }
-
-.playerTwo {
-  background: #00ff00; }
+.glyphicon {
+  font-size: 5em;
+  margin-top: 0.5em; }
 
 @media screen and (min-width: 768px) {
   .gameBoard {
