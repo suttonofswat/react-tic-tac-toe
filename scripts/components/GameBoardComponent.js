@@ -34,7 +34,11 @@ module.exports = React.createClass({
 			myTiles[position] = value;
 			this.setState({tiles: myTiles});
     },
-
+    onPlayAgain: function(){
+    	this.setState({tiles: tiles})
+    	this.forceUpdate();
+    	
+    },
     checkWinner: function(){
     	 // Running through the positions of the tiles to declare a winner
     	if(this.state.tiles[0] == this.state.tiles[1] 
@@ -114,8 +118,12 @@ module.exports = React.createClass({
 				<h5>Current Turn: {this.state.activePlayer}</h5>
 		}else{
 			currentTurn =
-				<h2>Winner: {this.state.winnerElement}</h2>
+				<div>
+					<h2>{this.state.winnerElement} wins!</h2>
+					<button onClick={this.onPlayAgain}>Play Again</button>
+				</div>
 		}
+
 		return (
 			<div className="gameBoard">
 				<div>

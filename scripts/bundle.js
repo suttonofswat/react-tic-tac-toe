@@ -34145,7 +34145,10 @@ module.exports = React.createClass({
 		myTiles[position] = value;
 		this.setState({ tiles: myTiles });
 	},
-
+	onPlayAgain: function onPlayAgain() {
+		this.setState({ tiles: tiles });
+		this.forceUpdate();
+	},
 	checkWinner: function checkWinner() {
 		// Running through the positions of the tiles to declare a winner
 		if (this.state.tiles[0] == this.state.tiles[1] && this.state.tiles[1] == this.state.tiles[2]) {
@@ -34202,12 +34205,22 @@ module.exports = React.createClass({
 			);
 		} else {
 			currentTurn = React.createElement(
-				'h2',
+				'div',
 				null,
-				'Winner: ',
-				this.state.winnerElement
+				React.createElement(
+					'h2',
+					null,
+					this.state.winnerElement,
+					' wins!'
+				),
+				React.createElement(
+					'button',
+					{ onClick: this.onPlayAgain },
+					'Play Again'
+				)
 			);
 		}
+
 		return React.createElement(
 			'div',
 			{ className: 'gameBoard' },
@@ -34243,46 +34256,49 @@ module.exports = React.createClass({
 			null,
 			React.createElement(
 				'div',
-				{ className: 'container' },
+				{ className: 'header' },
 				React.createElement(
 					'div',
-					{ className: 'row' },
-					React.createElement(
-						'h1',
-						null,
-						'Quick-Tac-Toe'
-					),
-					React.createElement(
-						'h4',
-						null,
-						'Built by Leslie Sutton'
-					),
-					React.createElement(
-						'h5',
-						null,
-						' 248-974-4752'
-					),
+					{ className: 'container' },
 					React.createElement(
 						'div',
-						null,
+						{ className: 'row' },
 						React.createElement(
-							'a',
-							{ target: '_blank', href: 'https://www.linkedin.com/in/lesliecsutton' },
-							'linkedin'
-						)
-					),
-					React.createElement(
-						'div',
-						null,
+							'h1',
+							null,
+							'Quic-Tac-Toe'
+						),
 						React.createElement(
-							'a',
-							{ target: '_blank', href: 'https://github.com/suttonofswat/react-tic-tac-toe' },
-							'github Project'
+							'h4',
+							null,
+							'Built by Leslie Sutton'
+						),
+						React.createElement(
+							'h5',
+							null,
+							'248-974-4752'
+						),
+						React.createElement(
+							'div',
+							null,
+							React.createElement(
+								'a',
+								{ target: '_blank', href: 'https://www.linkedin.com/in/lesliecsutton' },
+								'linkedin'
+							)
+						),
+						React.createElement(
+							'div',
+							null,
+							React.createElement(
+								'a',
+								{ target: '_blank', href: 'https://github.com/suttonofswat/react-tic-tac-toe' },
+								'github Project'
+							)
 						)
 					)
 				)
 			),
-			React.createElement('hr', null),
 			React.createElement(
 				'div',
 				null,
