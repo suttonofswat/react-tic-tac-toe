@@ -34196,9 +34196,11 @@ module.exports = React.createClass({
 		);
 	},
 	onMove: function onMove(event) {
-		console.log('this was clicked');
-		console.log(this.state.turn);
-		this.setState({ tiles: this.state.turn });
+		if (this.state.tiles === 'o') {
+			console.log('this spot is taken');
+		} else {
+			this.setState({ tiles: this.state.turn });
+		}
 	}
 
 });

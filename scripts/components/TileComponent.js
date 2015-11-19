@@ -6,7 +6,7 @@ var Backbone = require('backbone');
 module.exports = React.createClass({
 	getInitialState: function(){
 		return{
-			turn: 'o',
+			turn: 'o'
 		}
 	},
 
@@ -14,17 +14,17 @@ module.exports = React.createClass({
 		return (
 				<div className="col-xs-4 tile" onClick={this.onMove}>
 					{this.state.tiles}
-				
 				</div>
 
 		);
 	},
 	onMove: function(event){
-		console.log('this was clicked');
-		console.log(this.state.turn)
-		this.setState({tiles: this.state.turn})
+		if(this.state.tiles === 'o'){
+			console.log('this spot is taken');
+		} else{
+			this.setState({tiles: this.state.turn})
+		}
 
-		
 
 	}
 
