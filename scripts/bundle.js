@@ -34145,10 +34145,6 @@ module.exports = React.createClass({
 		myTiles[position] = value;
 		this.setState({ tiles: myTiles });
 	},
-	onPlayAgain: function onPlayAgain() {
-		this.setState({ tiles: tiles });
-		this.forceUpdate();
-	},
 	checkWinner: function checkWinner() {
 		// Running through the positions of the tiles to declare a winner
 		if (this.state.tiles[0] == this.state.tiles[1] && this.state.tiles[1] == this.state.tiles[2]) {
@@ -34212,11 +34208,6 @@ module.exports = React.createClass({
 					null,
 					this.state.winnerElement,
 					' wins!'
-				),
-				React.createElement(
-					'button',
-					{ onClick: this.onPlayAgain },
-					'Play Again'
 				)
 			);
 		}
