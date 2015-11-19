@@ -34125,7 +34125,8 @@ module.exports = React.createClass({
 			//Initial state of the game board
 			tiles: ['', '', '', '', '', '', '', '', ''],
 			//Initial state of the player
-			activePlayer: 1
+			activePlayer: 1,
+			winnerElement: null
 		};
 	},
 	switchPlayer: function switchPlayer() {
@@ -34139,6 +34140,7 @@ module.exports = React.createClass({
 	},
 
 	setTiles: function setTiles(position, value) {
+		//Setting the state on the tiles position
 		var myTiles = this.state.tiles;
 		myTiles[position] = value;
 		this.setState({ tiles: myTiles });
@@ -34147,20 +34149,37 @@ module.exports = React.createClass({
 	checkWinner: function checkWinner() {
 		// Running through the positions of the tiles to declare a winner
 		if (this.state.tiles[0] == this.state.tiles[1] && this.state.tiles[1] == this.state.tiles[2]) {
+			this.setState({ winnerElement: this.state.tiles[0] });
 			return this.state.tiles[0];
 			console.log(this.state.tiles[0]);
 		} else if (this.state.tiles[3] == this.state.tiles[4] && this.state.tiles[4] == this.state.tiles[5]) {
+			this.setState({ winnerElement: this.state.tiles[3] });
 			return this.state.tiles[3];
 			console.log(this.state.tiles[3]);
 		} else if (this.state.tiles[6] == this.state.tiles[7] && this.state.tiles[7] == this.state.tiles[8]) {
+			this.setState({ winnerElement: this.state.tiles[6] });
 			return this.state.tiles[6];
 			console.log(this.state.tiles[6]);
 		} else if (this.state.tiles[2] == this.state.tiles[4] && this.state.tiles[4] == this.state.tiles[6]) {
+			this.setState({ winnerElement: this.state.tiles[2] });
 			return this.state.tiles[2];
 			console.log(this.state.tiles[2]);
 		} else if (this.state.tiles[0] == this.state.tiles[4] && this.state.tiles[4] == this.state.tiles[8]) {
+			this.setState({ winnerElement: this.state.tiles[0] });
 			return this.state.tiles[0];
 			console.log(this.state.tiles[0]);
+		} else if (this.state.tiles[0] == this.state.tiles[3] && this.state.tiles[3] == this.state.tiles[6]) {
+			this.setState({ winnerElement: this.state.tiles[0] });
+			return this.state.tiles[0];
+			console.log(this.state.tiles[0]);
+		} else if (this.state.tiles[1] == this.state.tiles[4] && this.state.tiles[4] == this.state.tiles[7]) {
+			this.setState({ winnerElement: this.state.tiles[1] });
+			return this.state.tiles[1];
+			console.log(this.state.tiles[1]);
+		} else if (this.state.tiles[2] == this.state.tiles[5] && this.state.tiles[5] == this.state.tiles[8]) {
+			this.setState({ winnerElement: this.state.tiles[2] });
+			return this.state.tiles[2];
+			console.log(this.state.tiles[2]);
 		}
 		return null;
 	},
@@ -34168,7 +34187,7 @@ module.exports = React.createClass({
 	render: function render() {
 		var _this = this;
 
-		//mapping through the tile board
+		//mapping through the tile board, passing elements through to the Tile Component
 		var gBTiles = this.state.tiles.map(function (tile, position) {
 			return React.createElement(TileComponent, { key: position, pos: position, tiles: tile, player: _this.state.activePlayer,
 				switchPlayer: _this.switchPlayer, checkWinner: _this.checkWinner,
@@ -34177,6 +34196,16 @@ module.exports = React.createClass({
 		return React.createElement(
 			'div',
 			{ className: 'gameBoard' },
+			React.createElement(
+				'div',
+				null,
+				React.createElement(
+					'h2',
+					null,
+					'Winner: ',
+					this.state.winnerElement
+				)
+			),
 			gBTiles
 		);
 	}
@@ -34199,10 +34228,47 @@ module.exports = React.createClass({
 			'div',
 			null,
 			React.createElement(
-				'h1',
-				null,
-				'Home'
+				'div',
+				{ className: 'container' },
+				React.createElement(
+					'div',
+					{ className: 'row' },
+					React.createElement(
+						'h1',
+						null,
+						'Quick-Tac-Toe'
+					),
+					React.createElement(
+						'h4',
+						null,
+						'Built by Leslie Sutton'
+					),
+					React.createElement(
+						'h5',
+						null,
+						' 248-974-4752'
+					),
+					React.createElement(
+						'div',
+						null,
+						React.createElement(
+							'a',
+							{ target: '_blank', href: 'https://www.linkedin.com/in/lesliecsutton' },
+							'linkedin'
+						)
+					),
+					React.createElement(
+						'div',
+						null,
+						React.createElement(
+							'a',
+							{ target: '_blank', href: 'https://github.com/suttonofswat/react-tic-tac-toe' },
+							'github Project'
+						)
+					)
+				)
 			),
+			React.createElement('hr', null),
 			React.createElement(
 				'div',
 				null,
@@ -34224,7 +34290,7 @@ module.exports = React.createClass({
 	displayName: 'exports',
 
 	getInitialState: function getInitialState() {
-		//Initial state of the game board
+		//Initial design of players on game board
 		return {
 			playerOne: React.createElement('span', { id: 'x', className: 'glyphicon glyphicon-remove-circle', 'aria-hidden': 'true' }),
 			playerTwo: React.createElement('span', { id: 'o', className: 'glyphicon glyphicon-record', 'aria-hidden': 'true' })
@@ -34232,7 +34298,7 @@ module.exports = React.createClass({
 	},
 
 	render: function render() {
-		// debugger;
+		//Setting the position, click event and design for the tiles
 		return React.createElement(
 			'div',
 			{ className: 'col-xs-4 tile', id: 'tiles' + this.props.pos, onClick: this.onMove },
@@ -34241,7 +34307,7 @@ module.exports = React.createClass({
 	},
 
 	onMove: function onMove(event) {
-		console.log(this.state.tiles);
+		// console.log(this.state.tiles);
 		var tileContent = this.state.tiles;
 		console.log(tileContent);
 		if (this.state.tiles != undefined) {
@@ -34250,10 +34316,10 @@ module.exports = React.createClass({
 		}
 		if (this.props.player == 1) {
 			this.setState({ tiles: this.state.playerOne });
-			this.props.setTiles(this.props.pos, 'x');
+			this.props.setTiles(this.props.pos, 'player one');
 		} else {
 			this.setState({ tiles: this.state.playerTwo });
-			this.props.setTiles(this.props.pos, 'o');
+			this.props.setTiles(this.props.pos, 'player two');
 		}
 		this.props.setTiles(this.props.key);
 		this.props.switchPlayer();
