@@ -1,7 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Backbone = require('backbone');
-
+var TileComponent = require('./TileComponent');
 var GameBoardComponent = require('./GameBoardComponent');
 
 module.exports = React.createClass({
@@ -16,12 +16,11 @@ module.exports = React.createClass({
         };
     },
 	render: function(){
-		console.log(this.state.tiles);
+		console.log(this.state.turn);
 		var gBTiles = this.state.tiles
-			.map(function(tile) {
+			.map(function(tiles, position) {
 			return(
-				<div className="col-xs-4 tile">
-				</div>
+				<TileComponent key={position} tiles={tiles}/>
 			);
 		});
 		return (

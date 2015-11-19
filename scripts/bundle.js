@@ -34114,7 +34114,7 @@ module.exports = require('./lib/React');
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Backbone = require('backbone');
-
+var TileComponent = require('./TileComponent');
 var GameBoardComponent = require('./GameBoardComponent');
 
 module.exports = React.createClass({
@@ -34127,9 +34127,9 @@ module.exports = React.createClass({
 		};
 	},
 	render: function render() {
-		console.log(this.state.tiles);
-		var gBTiles = this.state.tiles.map(function (tile) {
-			return React.createElement('div', { className: 'col-xs-4 tile' });
+		console.log(this.state.turn);
+		var gBTiles = this.state.tiles.map(function (tiles, position) {
+			return React.createElement(TileComponent, { key: position, tiles: tiles });
 		});
 		return React.createElement(
 			'div',
@@ -34140,7 +34140,7 @@ module.exports = React.createClass({
 
 });
 
-},{"./GameBoardComponent":175,"backbone":1,"react":174,"react-dom":18}],176:[function(require,module,exports){
+},{"./GameBoardComponent":175,"./TileComponent":177,"backbone":1,"react":174,"react-dom":18}],176:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -34173,6 +34173,37 @@ module.exports = React.createClass({
 
 },{"./GameBoardComponent":175,"backbone":1,"react":174,"react-dom":18}],177:[function(require,module,exports){
 'use strict';
+
+var React = require('react');
+var ReactDOM = require('react-dom');
+var Backbone = require('backbone');
+
+module.exports = React.createClass({
+	displayName: 'exports',
+
+	getInitialState: function getInitialState() {
+		return {
+			turn: false
+		};
+	},
+	handleClick: function handleClick(event) {
+		this.setState({ turn: !this.state.turn });
+	},
+
+	render: function render() {
+		console.log(this.props.tiles);
+		console.log(this.state.turn);
+		return React.createElement(
+			'div',
+			{ className: 'col-xs-4 tile', onClick: this.handleClick },
+			this.props.tiles
+		);
+	}
+
+});
+
+},{"backbone":1,"react":174,"react-dom":18}],178:[function(require,module,exports){
+'use strict';
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Backbone = require('backbone');
@@ -34196,7 +34227,7 @@ var Router = Backbone.Router.extend({
 var r = new Router();
 Backbone.history.start();
 
-},{"./components/HomeComponent":176,"backbone":1,"bootstrap":3,"jquery":17,"react":174,"react-dom":18}]},{},[177])
+},{"./components/HomeComponent":176,"backbone":1,"bootstrap":3,"jquery":17,"react":174,"react-dom":18}]},{},[178])
 
 
 //# sourceMappingURL=bundle.js.map
