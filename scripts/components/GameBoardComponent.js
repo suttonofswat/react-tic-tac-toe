@@ -15,12 +15,13 @@ module.exports = React.createClass({
             ]
         };
     },
+
 	render: function(){
 		console.log(this.state.turn);
 		var gBTiles = this.state.tiles
 			.map(function(tiles, position) {
 			return(
-				<TileComponent key={position} tiles={tiles}/>
+				<TileComponent key={position} tiles={tiles} />
 			);
 		});
 		return (
@@ -29,5 +30,7 @@ module.exports = React.createClass({
 			</div>
 		);
 	}
+
+
 	
-})
+});

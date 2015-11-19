@@ -6,23 +6,26 @@ var Backbone = require('backbone');
 module.exports = React.createClass({
 	getInitialState: function(){
 		return{
-			turn: false
+			turn: 'o',
 		}
 	},
-	handleClick: function(event) {
-    	this.setState({turn: !this.state.turn})
-
-  	},
 
 	render: function(){
-		console.log(this.props.tiles)
-		console.log(this.state.turn);
 		return (
-				<div className="col-xs-4 tile" onClick={this.handleClick} >
-					{this.props.tiles}
+				<div className="col-xs-4 tile" onClick={this.onMove}>
+					{this.state.tiles}
+				
 				</div>
 
 		);
+	},
+	onMove: function(event){
+		console.log('this was clicked');
+		console.log(this.state.turn)
+		this.setState({tiles: this.state.turn})
+
+		
+
 	}
 
 	

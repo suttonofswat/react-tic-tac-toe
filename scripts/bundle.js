@@ -34126,6 +34126,7 @@ module.exports = React.createClass({
 			tiles: ['', '', '', '', '', '', '', '', '']
 		};
 	},
+
 	render: function render() {
 		console.log(this.state.turn);
 		var gBTiles = this.state.tiles.map(function (tiles, position) {
@@ -34183,21 +34184,21 @@ module.exports = React.createClass({
 
 	getInitialState: function getInitialState() {
 		return {
-			turn: false
+			turn: 'o'
 		};
-	},
-	handleClick: function handleClick(event) {
-		this.setState({ turn: !this.state.turn });
 	},
 
 	render: function render() {
-		console.log(this.props.tiles);
-		console.log(this.state.turn);
 		return React.createElement(
 			'div',
-			{ className: 'col-xs-4 tile', onClick: this.handleClick },
-			this.props.tiles
+			{ className: 'col-xs-4 tile', onClick: this.onMove },
+			this.state.tiles
 		);
+	},
+	onMove: function onMove(event) {
+		console.log('this was clicked');
+		console.log(this.state.turn);
+		this.setState({ tiles: this.state.turn });
 	}
 
 });
