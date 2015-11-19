@@ -34147,13 +34147,21 @@ module.exports = React.createClass({
 	checkWinner: function checkWinner() {
 		// Running through the positions of the tiles to declare a winner
 		if (this.state.tiles[0] == this.state.tiles[1] && this.state.tiles[1] == this.state.tiles[2]) {
-			console.log('player wins');
 			return this.state.tiles[0];
-		} else if (this.state.tiles[0] == this.state.tiles[1] && this.state.tiles[1] == this.state.tiles[2]) {
-			console.log('player wins');
+			console.log(this.state.tiles[0]);
+		} else if (this.state.tiles[3] == this.state.tiles[4] && this.state.tiles[4] == this.state.tiles[5]) {
+			return this.state.tiles[3];
+			console.log(this.state.tiles[3]);
+		} else if (this.state.tiles[6] == this.state.tiles[7] && this.state.tiles[7] == this.state.tiles[8]) {
+			return this.state.tiles[6];
+			console.log(this.state.tiles[6]);
+		} else if (this.state.tiles[2] == this.state.tiles[4] && this.state.tiles[4] == this.state.tiles[6]) {
+			return this.state.tiles[2];
+			console.log(this.state.tiles[2]);
+		} else if (this.state.tiles[0] == this.state.tiles[4] && this.state.tiles[4] == this.state.tiles[8]) {
 			return this.state.tiles[0];
+			console.log(this.state.tiles[0]);
 		}
-
 		return null;
 	},
 
@@ -34218,8 +34226,8 @@ module.exports = React.createClass({
 	getInitialState: function getInitialState() {
 		//Initial state of the game board
 		return {
-			playerOne: React.createElement('span', { id: 'x', className: 'glyphicon glyphicon-record', 'aria-hidden': 'true' }),
-			playerTwo: React.createElement('span', { id: 'o', className: 'glyphicon glyphicon-remove-circle', 'aria-hidden': 'true' })
+			playerOne: React.createElement('span', { id: 'x', className: 'glyphicon glyphicon-remove-circle', 'aria-hidden': 'true' }),
+			playerTwo: React.createElement('span', { id: 'o', className: 'glyphicon glyphicon-record', 'aria-hidden': 'true' })
 		};
 	},
 
@@ -34234,8 +34242,8 @@ module.exports = React.createClass({
 
 	onMove: function onMove(event) {
 		console.log(this.state.tiles);
-		// var tileContent = this.state.tiles;
-		// console.log(tileContent)
+		var tileContent = this.state.tiles;
+		console.log(tileContent);
 		if (this.state.tiles != undefined) {
 			console.log('this spot is taken');
 			return;
@@ -34247,10 +34255,10 @@ module.exports = React.createClass({
 			this.setState({ tiles: this.state.playerTwo });
 			this.props.setTiles(this.props.pos, 'o');
 		}
-		//this.props.setTiles(this.props.key);
+		this.props.setTiles(this.props.key);
 		this.props.switchPlayer();
 		this.props.checkWinner();
-		//console.log(this.props.checkWinner())
+		console.log(this.props.checkWinner());
 	}
 
 });

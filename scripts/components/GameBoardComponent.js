@@ -37,16 +37,35 @@ module.exports = React.createClass({
     	 // Running through the positions of the tiles to declare a winner
     	if(this.state.tiles[0] == this.state.tiles[1] 
     		&& this.state.tiles[1] == this.state.tiles[2]){
-    		console.log('player wins')
-				return this.state.tiles[0];			
+				return this.state.tiles[0];	
+				console.log(this.state.tiles[0]);		
 								
 				
-    	}else if(this.state.tiles[0] == this.state.tiles[1] 
-    		&& this.state.tiles[1] == this.state.tiles[2]){
-    		console.log('player wins')
-				return this.state.tiles[0];	
-		}		
+    	}else if(this.state.tiles[3] == this.state.tiles[4] 
+    		&& this.state.tiles[4] == this.state.tiles[5]){
+				return this.state.tiles[3];	
+				console.log(this.state.tiles[3]);		
 								
+				
+    	}else if(this.state.tiles[6] == this.state.tiles[7] 
+    		&& this.state.tiles[7] == this.state.tiles[8]){
+				return this.state.tiles[6];	
+				console.log(this.state.tiles[6]);		
+								
+				
+    	}else if(this.state.tiles[2] == this.state.tiles[4] 
+    		&& this.state.tiles[4] == this.state.tiles[6]){
+				return this.state.tiles[2];	
+				console.log(this.state.tiles[2]);		
+								
+				
+    	}else if(this.state.tiles[0] == this.state.tiles[4] 
+    		&& this.state.tiles[4] == this.state.tiles[8]){
+				return this.state.tiles[0];	
+				console.log(this.state.tiles[0]);		
+								
+				
+    	}
     	return null;
     },
 

@@ -7,8 +7,8 @@ module.exports = React.createClass({
 	getInitialState: function(){
 		//Initial state of the game board
 		return{
-			playerOne: <span id="x" className="glyphicon glyphicon-record" aria-hidden="true"></span>,
-			playerTwo: <span id="o" className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+			playerOne: <span id="x" className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>,
+			playerTwo: <span id="o" className="glyphicon glyphicon-record" aria-hidden="true"></span>
 		}
 	},
 
@@ -24,8 +24,8 @@ module.exports = React.createClass({
 
 onMove: function onMove(event) {
 		console.log(this.state.tiles);
-		// var tileContent = this.state.tiles;
-		// console.log(tileContent)
+		var tileContent = this.state.tiles;
+		console.log(tileContent)
 		if(this.state.tiles != undefined){
 			console.log('this spot is taken')
 			return;
@@ -38,10 +38,10 @@ onMove: function onMove(event) {
 			this.setState({ tiles: this.state.playerTwo });
 			this.props.setTiles(this.props.pos, 'o');
 		}
-		//this.props.setTiles(this.props.key);
+		this.props.setTiles(this.props.key);
 		this.props.switchPlayer();
 		this.props.checkWinner();
-		//console.log(this.props.checkWinner())
+		console.log(this.props.checkWinner())
 	}
 	
 })
