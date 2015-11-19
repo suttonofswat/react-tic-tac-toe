@@ -34123,14 +34123,38 @@ module.exports = React.createClass({
 	getInitialState: function getInitialState() {
 		return {
 			//Initial state of the game board.
-			tiles: ['', '', '', '', '', '', '', '', '']
+			tiles: ['', '', '', '', '', '', '', '', ''],
+			activePlayer: 1
 		};
+	},
+	switchPlayer: function switchPlayer() {
+		if (this.state.activePlayer == 1) {
+			this.setState({ activePlayer: 2 });
+		} else {
+			this.setState({ activePlayer: 1 });
+		}
+	},
+
+	setTiles: function setTiles(position, value) {
+		//var myTiles = this.state.tiles[position] = value;
+		//this.setState({tiles: })
+	},
+
+	checkWinner: function checkWinner() {
+		debugger;
+		if (document.getElementById('tiles0').innerText == document.getElementById('tiles1').innerText && document.getElementById('tiles1').innerText == document.getElementById('tiles2').innerText) {
+			return;
+			document.getElementById('tiles0').innerText;
+		}
+		return null;
 	},
 
 	render: function render() {
-		console.log(this.state.turn);
-		var gBTiles = this.state.tiles.map(function (tiles, position) {
-			return React.createElement(TileComponent, { key: position, tiles: tiles });
+		var _this = this;
+
+		var gBTiles = this.state.tiles.map(function (tile, position) {
+			return React.createElement(TileComponent, { key: postion, pos: position, tiles: tile, player: _this.state.activePlayer,
+				switchPlayer: _this.switchPlayer, checkWinner: _this.checkWinner });
 		});
 		return React.createElement(
 			'div',
@@ -34138,7 +34162,6 @@ module.exports = React.createClass({
 			gBTiles
 		);
 	}
-
 });
 
 },{"./GameBoardComponent":175,"./TileComponent":177,"backbone":1,"react":174,"react-dom":18}],176:[function(require,module,exports){
@@ -34184,23 +34207,35 @@ module.exports = React.createClass({
 
 	getInitialState: function getInitialState() {
 		return {
-			turn: 'o'
+			playerOne: 'x',
+			playerTwo: 'o'
 		};
 	},
 
 	render: function render() {
+		// debugger;
 		return React.createElement(
 			'div',
-			{ className: 'col-xs-4 tile', onClick: this.onMove },
+			{ className: 'col-xs-4 tile', id: 'tiles' + this.props.pos, onClick: this.onMove },
 			this.state.tiles
 		);
 	},
+
 	onMove: function onMove(event) {
-		if (this.state.tiles === 'o') {
+		console.log(this.props.pos);
+		if (this.state.tiles === 'x' || this.state.tiles === 'o') {
 			console.log('this spot is taken');
-		} else {
-			this.setState({ tiles: this.state.turn });
+			return;
 		}
+		if (this.props.player == 1) {
+			this.setState({ tiles: this.state.playerOne });
+		} else {
+			this.setState({ tiles: this.state.playerTwo });
+		}
+		//this.props.setTiles(this.props.key);
+		this.props.switchPlayer();
+		this.props.checkWinner();
+		console.log(this.props.checkWinner());
 	}
 
 });

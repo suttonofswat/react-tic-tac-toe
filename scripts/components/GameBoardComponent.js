@@ -12,16 +12,40 @@ module.exports = React.createClass({
                 '', '', '',
                 '', '', '',
                 '', '', ''
-            ]
-        };
+            ],
+            activePlayer: 1
+        }
+    },
+    switchPlayer: function() {
+			if(this.state.activePlayer == 1){
+				this.setState({ activePlayer: 2 });
+			}else{
+				this.setState({ activePlayer: 1 });
+			}
+    },
+
+    setTiles: function(position, value){
+			//var myTiles = this.state.tiles[position] = value;
+			//this.setState({tiles: })
+    },
+
+    checkWinner: function(){
+    	 debugger;
+    	if(document.getElementById('tiles0').innerText == document.getElementById('tiles1').innerText && document.getElementById('tiles1').innerText == document.getElementById('tiles2').innerText){
+				return 
+						document.getElementById('tiles0').innerText;
+								
+				
+    	}
+    	return null;
     },
 
 	render: function(){
-		console.log(this.state.turn);
 		var gBTiles = this.state.tiles
-			.map(function(tiles, position) {
+			.map((tile, position) => {
 			return(
-				<TileComponent key={position} tiles={tiles} />
+				<TileComponent key={postion} pos={position} tiles={tile} player={this.state.activePlayer} 
+				switchPlayer={this.switchPlayer} checkWinner={this.checkWinner} />
 			);
 		});
 		return (
@@ -30,7 +54,4 @@ module.exports = React.createClass({
 			</div>
 		);
 	}
-
-
-	
 });
