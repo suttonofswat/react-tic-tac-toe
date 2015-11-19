@@ -34193,6 +34193,14 @@ module.exports = React.createClass({
 				switchPlayer: _this.switchPlayer, checkWinner: _this.checkWinner,
 				setTiles: _this.setTiles });
 		});
+		if (!this.state.winnerElement) {
+			var currentTurn = React.createElement(
+				'h5',
+				null,
+				'Current Turn: ',
+				this.state.activePlayer
+			);
+		}
 		return React.createElement(
 			'div',
 			{ className: 'gameBoard' },
@@ -34204,6 +34212,11 @@ module.exports = React.createClass({
 					null,
 					'Winner: ',
 					this.state.winnerElement
+				),
+				React.createElement(
+					'div',
+					null,
+					currentTurn
 				)
 			),
 			gBTiles
@@ -34294,6 +34307,7 @@ module.exports = React.createClass({
 		return {
 			playerOne: React.createElement('span', { id: 'x', className: 'glyphicon glyphicon-remove-circle', 'aria-hidden': 'true' }),
 			playerTwo: React.createElement('span', { id: 'o', className: 'glyphicon glyphicon-record', 'aria-hidden': 'true' })
+
 		};
 	},
 
@@ -34302,14 +34316,16 @@ module.exports = React.createClass({
 		return React.createElement(
 			'div',
 			{ className: 'col-xs-4 tile', id: 'tiles' + this.props.pos, onClick: this.onMove },
-			this.state.tiles
+			this.state.tiles,
+			React.createElement(
+				'div',
+				null,
+				this.state.errorElement
+			)
 		);
 	},
 
 	onMove: function onMove(event) {
-		// console.log(this.state.tiles);
-		var tileContent = this.state.tiles;
-		console.log(tileContent);
 		if (this.state.tiles != undefined) {
 			console.log('this spot is taken');
 			return;
@@ -34324,7 +34340,6 @@ module.exports = React.createClass({
 		this.props.setTiles(this.props.key);
 		this.props.switchPlayer();
 		this.props.checkWinner();
-		console.log(this.props.checkWinner());
 	}
 
 });

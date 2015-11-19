@@ -9,6 +9,7 @@ module.exports = React.createClass({
 		return{
 			playerOne: <span id="x" className="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>,
 			playerTwo: <span id="o" className="glyphicon glyphicon-record" aria-hidden="true"></span>
+
 		}
 	},
 
@@ -17,15 +18,15 @@ module.exports = React.createClass({
 		return (
 				<div className="col-xs-4 tile" id={'tiles'+ this.props.pos} onClick={this.onMove}>
 					{this.state.tiles}
+					<div>
+					{this.state.errorElement}
+					</div>
 				</div>
 
 		);
 	},
 
 onMove: function onMove(event) {
-		// console.log(this.state.tiles);
-		var tileContent = this.state.tiles;
-		console.log(tileContent)
 		if(this.state.tiles != undefined){
 			console.log('this spot is taken')
 			return;
@@ -41,7 +42,7 @@ onMove: function onMove(event) {
 		this.props.setTiles(this.props.key);
 		this.props.switchPlayer();
 		this.props.checkWinner();
-		console.log(this.props.checkWinner())
+
 	}
 	
 })

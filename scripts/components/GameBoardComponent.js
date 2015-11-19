@@ -109,10 +109,15 @@ module.exports = React.createClass({
 				setTiles={this.setTiles}/>
 			);
 		});
+		if(!this.state.winnerElement){
+			var currentTurn = 
+				<h5>Current Turn: {this.state.activePlayer}</h5>
+		}
 		return (
 			<div className="gameBoard">
 				<div>
 					<h2>Winner: {this.state.winnerElement}</h2>
+					<div>{currentTurn}</div>
 				</div>
 				{gBTiles}
 				
