@@ -15,8 +15,7 @@ module.exports = React.createClass({
             ],
             //Initial state of the player
             activePlayer: 'Player One', 
-            winnerElement: null,
-            count: 1
+            winnerElement: null
         }
     },
     switchPlayer: function() {
@@ -37,69 +36,54 @@ module.exports = React.createClass({
 			this.setState({tiles: myTiles});
     },
     checkWinner: function(){
-    	console.log(this.state.winnerElement);
-    	console.log(this.state.tiles);
     	 // Running through the positions of the tiles to declare a winner
     	if(this.state.tiles[0] == this.state.tiles[1] 
     		&& this.state.tiles[1] == this.state.tiles[2]){
     			this.setState({winnerElement: this.state.tiles[0]})
 				return this.state.tiles[0];
-				console.log(this.state.winnerElement);					
+
+				
 				
     	}else if(this.state.tiles[3] == this.state.tiles[4] 
     		&& this.state.tiles[4] == this.state.tiles[5]){
 				this.setState({winnerElement: this.state.tiles[3]})
 				return this.state.tiles[3];	
-						
+		
 				
     	}else if(this.state.tiles[6] == this.state.tiles[7] 
     		&& this.state.tiles[7] == this.state.tiles[8]){
-				this.setState({winnerElement: this.state.tiles[6]})
-				return this.state.tiles[6];	
-	
-								
+				this.setState({winnerElement: this.state.tiles[7]})
+				return this.state.tiles[7];
+			
 				
     	}else if(this.state.tiles[2] == this.state.tiles[4] 
     		&& this.state.tiles[4] == this.state.tiles[6]){
     			this.setState({winnerElement: this.state.tiles[2]})
 				return this.state.tiles[2];	
-	
-								
+						
 				
     	}else if(this.state.tiles[0] == this.state.tiles[4] 
     		&& this.state.tiles[4] == this.state.tiles[8]){
     			this.setState({winnerElement: this.state.tiles[0]})
 				return this.state.tiles[0];	
-		
-								
-				
+	
     	}else if(this.state.tiles[0] == this.state.tiles[3] 
     		&& this.state.tiles[3] == this.state.tiles[6]){
     			this.setState({winnerElement: this.state.tiles[0]})
 				return this.state.tiles[0];	
-			
-								
+					
 				
     	}else if(this.state.tiles[1] == this.state.tiles[4] 
     		&& this.state.tiles[4] == this.state.tiles[7]){
     			this.setState({winnerElement: this.state.tiles[1]})
 				return this.state.tiles[1];	
-			
-								
+						
 				
     	}else if(this.state.tiles[2] == this.state.tiles[5] 
     		&& this.state.tiles[5] == this.state.tiles[8]){
     			this.setState({winnerElement: this.state.tiles[2]})
 				return this.state.tiles[2];	
-				
-								
-				
-    	}else if(this.state.tiles !== '' && this.state.winnerElement === null){
-    			//currently not working, figuring out how to declare a cats game.
-    			this.setState({winnerElement: 'cats game! No one'})
-    			console.log('no one won')
-    			console.log(this.state.tiles);
-    			console.log(this.state.winnerElement);
+		
     	}
     	return null;
 
