@@ -34125,17 +34125,19 @@ module.exports = React.createClass({
 			//Initial state of the game board
 			tiles: ['', '', '', '', '', '', '', '', ''],
 			//Initial state of the player
-			activePlayer: 'player one',
-			winnerElement: null
+			activePlayer: 'Player One',
+			winnerElement: null,
+			count: 1
 		};
 	},
 	switchPlayer: function switchPlayer() {
+
 		//Creating Function to switch player on the parent element to use once move has been
 		//made on the TileComponent.
-		if (this.state.activePlayer == 'player one') {
-			this.setState({ activePlayer: 'player two' });
+		if (this.state.activePlayer == 'Player One') {
+			this.setState({ activePlayer: 'Player Two' });
 		} else {
-			this.setState({ activePlayer: 'player one' });
+			this.setState({ activePlayer: 'Player One' });
 		}
 	},
 
@@ -34146,39 +34148,40 @@ module.exports = React.createClass({
 		this.setState({ tiles: myTiles });
 	},
 	checkWinner: function checkWinner() {
+		console.log(this.state.winnerElement);
+		console.log(this.state.tiles);
 		// Running through the positions of the tiles to declare a winner
 		if (this.state.tiles[0] == this.state.tiles[1] && this.state.tiles[1] == this.state.tiles[2]) {
 			this.setState({ winnerElement: this.state.tiles[0] });
 			return this.state.tiles[0];
-			console.log(this.state.tiles[0]);
+			console.log(this.state.winnerElement);
 		} else if (this.state.tiles[3] == this.state.tiles[4] && this.state.tiles[4] == this.state.tiles[5]) {
 			this.setState({ winnerElement: this.state.tiles[3] });
 			return this.state.tiles[3];
-			console.log(this.state.tiles[3]);
 		} else if (this.state.tiles[6] == this.state.tiles[7] && this.state.tiles[7] == this.state.tiles[8]) {
 			this.setState({ winnerElement: this.state.tiles[6] });
 			return this.state.tiles[6];
-			console.log(this.state.tiles[6]);
 		} else if (this.state.tiles[2] == this.state.tiles[4] && this.state.tiles[4] == this.state.tiles[6]) {
 			this.setState({ winnerElement: this.state.tiles[2] });
 			return this.state.tiles[2];
-			console.log(this.state.tiles[2]);
 		} else if (this.state.tiles[0] == this.state.tiles[4] && this.state.tiles[4] == this.state.tiles[8]) {
 			this.setState({ winnerElement: this.state.tiles[0] });
 			return this.state.tiles[0];
-			console.log(this.state.tiles[0]);
 		} else if (this.state.tiles[0] == this.state.tiles[3] && this.state.tiles[3] == this.state.tiles[6]) {
 			this.setState({ winnerElement: this.state.tiles[0] });
 			return this.state.tiles[0];
-			console.log(this.state.tiles[0]);
 		} else if (this.state.tiles[1] == this.state.tiles[4] && this.state.tiles[4] == this.state.tiles[7]) {
 			this.setState({ winnerElement: this.state.tiles[1] });
 			return this.state.tiles[1];
-			console.log(this.state.tiles[1]);
 		} else if (this.state.tiles[2] == this.state.tiles[5] && this.state.tiles[5] == this.state.tiles[8]) {
 			this.setState({ winnerElement: this.state.tiles[2] });
 			return this.state.tiles[2];
-			console.log(this.state.tiles[2]);
+		} else if (this.state.tiles !== '' && this.state.winnerElement === null) {
+			//currently not working, figuring out how to declare a cats game.
+			this.setState({ winnerElement: 'cats game! No one' });
+			console.log('no one won');
+			console.log(this.state.tiles);
+			console.log(this.state.winnerElement);
 		}
 		return null;
 	},
@@ -34189,15 +34192,24 @@ module.exports = React.createClass({
 		//mapping through the tile board, passing elements through to the Tile Component
 		var gBTiles = this.state.tiles.map(function (tile, position) {
 			return React.createElement(TileComponent, { key: position, pos: position, tiles: tile, player: _this.state.activePlayer,
-				switchPlayer: _this.switchPlayer, checkWinner: _this.checkWinner,
+				switchPlayer: _this.switchPlayer, playAgain: _this.onPlayAgain, checkWinner: _this.checkWinner,
 				setTiles: _this.setTiles });
 		});
 		if (!this.state.winnerElement) {
 			var currentTurn = React.createElement(
 				'h5',
 				null,
-				'Current Turn: ',
-				this.state.activePlayer
+				React.createElement(
+					'span',
+					{ className: 'turn' },
+					'Turn: '
+				),
+				React.createElement(
+					'span',
+					{ className: 'player' },
+					' ',
+					this.state.activePlayer
+				)
 			);
 		} else {
 			currentTurn = React.createElement(
@@ -34205,9 +34217,14 @@ module.exports = React.createClass({
 				null,
 				React.createElement(
 					'h2',
-					null,
+					{ className: 'winner' },
 					this.state.winnerElement,
 					' wins!'
+				),
+				React.createElement(
+					'p',
+					null,
+					'Refresh to play again'
 				)
 			);
 		}
@@ -34262,7 +34279,7 @@ module.exports = React.createClass({
 						React.createElement(
 							'h4',
 							null,
-							'Built by Leslie Sutton'
+							'Built by: Leslie Sutton'
 						),
 						React.createElement(
 							'h5',
@@ -34270,7 +34287,7 @@ module.exports = React.createClass({
 							'248-974-4752'
 						),
 						React.createElement(
-							'div',
+							'h5',
 							null,
 							React.createElement(
 								'a',
@@ -34279,7 +34296,7 @@ module.exports = React.createClass({
 							)
 						),
 						React.createElement(
-							'div',
+							'h5',
 							null,
 							React.createElement(
 								'a',
@@ -34313,8 +34330,8 @@ module.exports = React.createClass({
 	getInitialState: function getInitialState() {
 		//Initial design of players on game board
 		return {
-			playerOne: React.createElement('span', { id: 'x', className: 'glyphicon glyphicon-remove-circle', 'aria-hidden': 'true' }),
-			playerTwo: React.createElement('span', { id: 'o', className: 'glyphicon glyphicon-record', 'aria-hidden': 'true' })
+			playerOne: React.createElement('span', { className: 'glyphicon glyphicon-remove-circle', 'aria-hidden': 'true' }),
+			playerTwo: React.createElement('span', { className: 'glyphicon glyphicon-record', 'aria-hidden': 'true' })
 
 		};
 	},
@@ -34324,26 +34341,23 @@ module.exports = React.createClass({
 		return React.createElement(
 			'div',
 			{ className: 'col-xs-4 tile', id: 'tiles' + this.props.pos, onClick: this.onMove },
-			this.state.tiles,
-			React.createElement(
-				'div',
-				null,
-				this.state.errorElement
-			)
+			this.state.tiles
 		);
 	},
 
 	onMove: function onMove(event) {
+		//on click, switching the activePlayer from player one to player two
 		if (this.state.tiles != undefined) {
 			console.log('this spot is taken');
 			return;
 		}
-		if (this.props.player == 'player one') {
+		if (this.props.player == 'Player One') {
 			this.setState({ tiles: this.state.playerOne });
-			this.props.setTiles(this.props.pos, 'player one');
+			this.props.setTiles(this.props.pos, 'Player One');
 		} else {
+
 			this.setState({ tiles: this.state.playerTwo });
-			this.props.setTiles(this.props.pos, 'player two');
+			this.props.setTiles(this.props.pos, 'Player Two');
 		}
 		this.props.setTiles(this.props.key);
 		this.props.switchPlayer();
@@ -34369,7 +34383,7 @@ var Router = Backbone.Router.extend({
 		'': 'home'
 	},
 	home: function home() {
-		ReactDOM.render(React.createElement(HomeComponent, null), app);
+		ReactDOM.render(React.createElement(HomeComponent, { router: r }), app);
 	}
 
 });

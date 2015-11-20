@@ -12,14 +12,11 @@ module.exports = React.createClass({
 					<div className="container">
 						<div className="row">
 							<h1>Quic-Tac-Toe</h1>
-							<h4>Built by Leslie Sutton</h4>
+							<h4>Built by: Leslie Sutton</h4>
 							<h5>248-974-4752</h5>
-							<div>
-								<a target="_blank" href="https://www.linkedin.com/in/lesliecsutton">linkedin</a>
-							</div>
-							<div>
-								<a target="_blank" href="https://github.com/suttonofswat/react-tic-tac-toe">github Project</a>
-							</div>
+							<h5><a target="_blank" href="https://www.linkedin.com/in/lesliecsutton">linkedin</a></h5>
+							<h5><a target="_blank" href="https://github.com/suttonofswat/react-tic-tac-toe">github Project</a></h5>
+							
 						</div>
 					</div>
 				</div>

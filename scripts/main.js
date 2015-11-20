@@ -16,7 +16,7 @@ var Router = Backbone.Router.extend({
 		'' : 'home'
 	},
 	home: function() {
-		ReactDOM.render(<HomeComponent />, app);
+		ReactDOM.render(<HomeComponent router={r}/>, app);
 	}
 	
 })

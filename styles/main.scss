@@ -1,11 +1,38 @@
+
 .header{
-	background: #add8e6;
-	color: #fff;
-	
+  text-align:center;
+  font-size:1.75em;
+  color: #888;
+  border-bottom:1px solid #888;
+  margin:0.5em;
+    .headerLinks{
+  		font-size: .75em;
+  		margin-bottom: .5em;
+  	}
 }
+//when a player wins, displaying green color
+.winner{
+	color: #43CE43;
+}
+//styling for "turn"
+.turn{
+	font-size:1.5em;
+  	color: #888;
+}
+//styling for "player One" or "Player Two"
+.player{
+	color: #F44336;
+	font-size: 1.5em;
+}
+//centering the full game board
 .gameBoard{
 	margin: 0 2em;
 }
+//the o icon color red
+.glyphicon-record{
+	color: #F44336;
+}
+//giving each indivual tile a style. That rhymed. 
 .tile{
 	border: 1px solid #b4b4b4;
 	height: 10em;
@@ -13,17 +40,19 @@
 
 }
 
+//styling the icons in the tiles
 .glyphicon{
 	font-size: 5em;
 	margin-top: 0.5em;
 }
-
-
+//styled mobile first
+//changing the styling for sm-md screens
 @media screen and (min-width:768px){
 	.gameBoard{
 		margin: 0 17em;
 	}
 }
+//changing for lg screens
 @media screen and (min-width:1200px){
 	.gameBoard{
 		margin: 0 25em;
